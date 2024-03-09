@@ -1,0 +1,2 @@
+Data read from input.txt : This is a sample text file which we are going to using  as an input for our program.  
+ Date created Thu Mar 07 2024 22:30:26 GMT+0545 (Nepal Time)
