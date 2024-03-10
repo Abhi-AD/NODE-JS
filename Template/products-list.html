@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <style>
+          .products-list {
+               display: flex;
+               justify-content: space-between;
+               align-items: flex-start;
+               padding: 20px;
+
+          }
+
+          .products-detail {
+               background-color: #9e9898;
+               border-radius: 8px;
+               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+               padding: 20px;
+               margin-bottom: 20px;
+               width: 45%;
+          }
+
+          .product-image img {
+               max-width: 100%;
+               height: auto;
+               border-radius: 8px;
+               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+           }
+           
+
+          .product-specs {
+               margin-top: 10px;
+          }
+
+          .product-specs h3 {
+               font-size: 20px;
+               margin-bottom: 10px;
+          }
+
+          .product-specs p {
+               margin: 5px 0;
+               color: #555;
+          }
+
+          .product-info {
+               margin-top: 10px;
+
+          }
+
+          .product-info h4 {
+               font-size: 18px;
+               margin-bottom: 5px;
+               color: #333;
+          }
+
+          .btn {
+               padding: 10px 20px;
+               border-radius: 5px;
+               cursor: pointer;
+               border: none;
+               outline: none;
+               transition: all 0.3s ease;
+          }
+
+          .btn-primary {
+               background-color: #6993bf;
+               color: #fff;
+          }
+
+          .btn-primary:hover {
+               background-color: #0056b3;
+          }
+
+          .btn-secondary {
+               background-color: #505152;
+               color: #fff;
+               margin-left: 10px;
+          }
+
+          .btn-secondary:hover {
+               background-color: #e0e1e2;
+          }
+
+          @media (max-width: 768px) {
+               .products-list {
+                    flex-direction: column;
+               }
+
+               .products-detail {
+                    width: 100%;
+                    margin-bottom: 20px;
+               }
+          }
+     </style>
+</head>
+
+<body>
+     <div class="products-list">
+          <div class="products-detail">
+               <div class="product-image">
+                    <img src={{%IMAGE%}} height="120" width="120">
+               </div>
+               <div class="product-specs">
+                    <h3>{{%NAME%}}</h3>
+                    <p><span>Model Name:</span>{{%MODELNAME%}}</p>
+                    <p><span>Model Number:</span>{{%MODELNUMBER%}}</p>
+                    <p><span>Size:</span>{{%SIZE%}}</p>
+                    <p><span>Camera:</span>{{%CAMERA%}}</p>
+               </div>
+          </div>
+          <div class="products-detail">
+               <div class="product-info">
+                    <h4>Price: ${{%PRICE%}}</h4>
+               </div>
+               <div class="product-info">
+                    <h4>Color: {{%COLOR%}}</h4>
+               </div>
+               <div class="product-info">
+                    <button class="btn btn-primary">Buy Now</button>
+                    <a href="/products?id={{%ID%}}" class="btn btn-secondary">Show Details</a>
+               </div>
+          </div>
+     </div>
+</body>
+
+</html>

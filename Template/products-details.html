@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title></title>
+     <style>
+          .page-content {
+               max-width: 800px;
+               margin: 0 auto;
+               padding: 20px;
+          }
+
+          .product-page {
+               display: flex;
+               justify-content: center;
+          }
+
+          .product.desc {
+               display: flex;
+               margin-top: 20px;
+          }
+
+          .product-desc-image img {
+               border: 1px solid #ddd;
+               border-radius: 5px;
+          }
+
+          .product-details-info {
+               margin-left: 20px;
+          }
+
+          .product-details-info h1 {
+               font-size: 24px;
+               margin-bottom: 10px;
+          }
+
+          .product-details-info h2 {
+               font-size: 20px;
+          }
+
+          .product-desc-details {
+               margin-top: 20px;
+          }
+
+          .product-desc-details p {
+               margin-bottom: 5px;
+          }
+
+          .product-details-desc {
+               margin-top: 20px;
+          }
+
+          .product-details-desc h3 {
+               font-size: 18px;
+               margin-bottom: 10px;
+          }
+
+          .product-details-desc p {
+               line-height: 1.5;
+          }
+     </style>
+</head>
+
+<body>
+     <div class="page-content">
+          <div class="product-page">
+               <div class="product desc">
+                    <div class="product-desc-image">
+                         <img src={{%IMAGE%}} width="280" height="320">
+                    </div>
+                    <div class="product-details-info">
+                         <h1>{{%NAME%}}</h1>
+                         <h2 style="color: green">${{%PRICE%}}</h2>
+                         <div class="product-desc-details">
+                              <h3>Product Details</h3>
+                              <p class="product-desc-p">{{%SIZE%}}</p>
+                              <p class="product-desc-p">{{%CAMERA%}}</p>
+                              <p class="product-desc-p"><b>Model Name</b>{{%MODELNAME%}}</p>
+                              <p class="product-desc-p"><b>Model Number</b>{{%MODELNUMBER%}}</p>
+                              <p class="product-desc-p"><b>ROM</b>{{%ROM%}}GB</p>
+                         </div>
+                         <div class="product-details-desc">
+                              <h3>Product Description</h3>
+                              <p class="product-desc-p">{{%desc%}}</p>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</body>
+
+</html>
