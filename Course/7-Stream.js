@@ -29,17 +29,44 @@ server.listen(8000, '127.0.0.1', () => {
 
 
 
-// stream in javascripts (using the  readable or writeable stream)
-server.on('request', (req, res) =>{
+// // stream in javascripts (using the  readable or writeable stream)
+// server.on('request', (req, res) =>{
+//      let rs = fs.createReadStream('../txt/large-file.txt')
+//      rs.on('data', (file) =>{
+//           res.write(file)
+//      })
+//      rs.on('end',()=>{
+//           res.end();
+//      })
+//      rs.on('error', (error) =>{
+//           res.end(error.message);
+//      })
+// })
+
+
+
+
+
+
+
+
+
+// stream in javascripts (using the  pipe method)
+server.on('request', (req, res) => {
      let rs = fs.createReadStream('../txt/large-file.txt')
-     rs.on('data', (file) =>{
-          res.write(file)
-          res.end();
-     })
-     rs.on('error', (error) =>{
-          res.end(error.message);
-     })
+     rs.pipe(res);
+     // redableSource.pipe(writableDest)
 })
+
+
+
+
+
+
+
+
+
+
 
 
 
