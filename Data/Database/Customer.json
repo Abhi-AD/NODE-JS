@@ -1,0 +1,143 @@
+[
+     {
+       "_id": 1,
+       "name": "John Doe",
+       "gender": "male",
+       "age": 20,
+       "country": "Nepal"
+     },
+     {
+       "_id": 2,
+       "name": "Jane Smith",
+       "gender": "female",
+       "age": 25,
+       "country": "Nepal"
+     },
+     {
+       "_id": 3,
+       "name": "Michael Johnson",
+       "gender": "male",
+       "age": 30,
+       "country": "Nepal"
+     },
+     {
+       "_id": 4,
+       "name": "Emily Brown",
+       "gender": "female",
+       "age": 22,
+       "country": "Nepal"
+     },
+     {
+       "_id": 5,
+       "name": "David Wilson",
+       "gender": "male",
+       "age": 28,
+       "country": "Nepal"
+     },
+     {
+       "_id": 6,
+       "name": "Jessica Martinez",
+       "gender": "female",
+       "age": 23,
+       "country": "Nepal"
+     },
+     {
+       "_id": 7,
+       "name": "Christopher Lee",
+       "gender": "male",
+       "age": 26,
+       "country": "Nepal"
+     },
+     {
+       "_id": 8,
+       "name": "Sophia Kim",
+       "gender": "female",
+       "age": 21,
+       "country": "Nepal"
+     },
+     {
+       "_id": 9,
+       "name": "James Chen",
+       "gender": "male",
+       "age": 29,
+       "country": "Nepal"
+     },
+     {
+       "_id": 10,
+       "name": "Isabella Wong",
+       "gender": "female",
+       "age": 24,
+       "country": "Nepal"
+     },
+     {
+       "_id": 11,
+       "name": "Ethan Nguyen",
+       "gender": "male",
+       "age": 27,
+       "country": "Nepal"
+     },
+     {
+       "_id": 12,
+       "name": "Olivia Garcia",
+       "gender": "female",
+       "age": 22,
+       "country": "Nepal"
+     },
+     {
+       "_id": 13,
+       "name": "Daniel Kim",
+       "gender": "male",
+       "age": 30,
+       "country": "Nepal"
+     },
+     {
+       "_id": 14,
+       "name": "Ava Hernandez",
+       "gender": "female",
+       "age": 21,
+       "country": "Nepal"
+     },
+     {
+       "_id": 15,
+       "name": "William Lopez",
+       "gender": "male",
+       "age": 28,
+       "country": "Nepal"
+     },
+     {
+       "_id": 16,
+       "name": "Mia Martinez",
+       "gender": "female",
+       "age": 23,
+       "country": "Nepal"
+     },
+     {
+       "_id": 17,
+       "name": "Alexander Silva",
+       "gender": "male",
+       "age": 26,
+       "country": "Nepal"
+     },
+     {
+       "_id": 18,
+       "name": "Charlotte Nguyen",
+       "gender": "female",
+       "age": 29,
+       "country": "Nepal"
+     },
+     {
+       "_id": 19,
+       "name": "Benjamin Smith",
+       "gender": "male",
+       "age": 24,
+       "country": "Nepal"
+     },
+     {
+       "_id": 20,
+       "name": "Amelia Brown",
+       "gender": "female",
+       "age": 22,
+       "country": "Nepal"
+     }
+   ]
+   

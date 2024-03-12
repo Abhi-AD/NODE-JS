@@ -1,0 +1,63 @@
+MongoDB
+MongoDB is a document oriented, non-relational NoSQL database.
+Important features of MongoDB:-
+1:- MongoDB stores data in a collection as a document. Each document has field(key-value pairs).
+2:- MongoDB has built-in scalability making it easy to distribute data across multiple machines & generate a ton of data.
+3:- MongoDB has great flexibility and it does not enforces a predefined schema on a collection.
+4:- MongoDB is a performant database solution because of the features like embedded data model, indexing, sharding, flexible documents etc.
+5:- MongoDB is a free and open-source database solution published under SSPL license.
+
+
+
+
+
+
+
+What is BSON Data Format ?
+BSON, or Binary JSON, is the data format that MongoDB uses to organize and store data.This data format includes all JSON data structure types and adds support for types including dates, different size integers, ObjectIds, and binary data.
+
+
+inserting documents in collection
+db.<database_name>.insertMany([{},{},{}])             //many data
+db.<database_name>.insert({})                         //single data
+
+
+
+fetch documents from collections
+db.<database_name>.findOne()                        //single data
+db.<database_name>.findOne({})                      //single data
+
+
+
+
+update documents in a collection
+db.<database_name>.updateOne({"<search criteria>"}, {"$set": {}})   //for single data
+db.<database_name>.updateMany({"<search criteria>"}, {"$set": {}})   //for many data
+
+
+
+
+
+
+delete documents in a collection
+db.<database_name>.deleteOne({"<search criteria>"})    // for deleting one entry data
+db.customer.remove({name:"Abhishek"}, true)
+db.<database_name>.deleteMany({"<search criteria>"})     // for deleting many entry data
+db.customer. remove({name:"Abhishek"})
+
+
+
+
+
+Cursor in MongoDB
+db.<database_name>.find().toArray()
+ db.<database_name>.find().forEach(function(customer){print("Customer name: " +customer.name)})
+
+
+
+
+Data types in MongoDB
+string,boolean,number(Types:- Int,Decimal),ObjectId, Date(Types:- ISODate, Timestamp), Embedded_Document, Array, 
+
+typeof db.<database_name>.findOne().age
+db.stats()
