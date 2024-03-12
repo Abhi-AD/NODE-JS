@@ -24,5 +24,3 @@ app.use('/api/v1/movies', movieRouter)
 
 
 module.exports = app;
-
-

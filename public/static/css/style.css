@@ -1,0 +1,26 @@
+body {
+     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+     margin: 0;
+     padding: 0;
+     background-color: #f0f0f0;
+}
+
+.card {
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+     text-align: center;
+     border-radius: 8px;
+     margin: 100px 410px;
+     padding: 20px 30px;
+     width: 80%;
+     max-width: 600px;
+     background-color: #fff;
+}
+
+h2 {
+     color: #333;
+}
+
+p {
+     color: #666;
+     line-height: 1.6;
+}
