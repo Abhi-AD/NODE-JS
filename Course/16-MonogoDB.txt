@@ -61,3 +61,37 @@ string,boolean,number(Types:- Int,Decimal),ObjectId, Date(Types:- ISODate, Times
 
 typeof db.<database_name>.findOne().age
 db.stats()
+
+
+
+
+Embedded_Document
+db.customer. remove({name:"Abhishek"})
+nodejsdb> db.customer.updateOne({<find_update>},{$set:{<upodate>}})
+nodejsdb> db.customer.findOne({<find_value>})
+nodejsdb> db.customer.findOne({<find_value>}).<search_find>
+
+
+
+Working with Working
+nodejsdb> db.customer.deleteMany({})              //deleteMany
+
+
+MongoDB Compass
+1. Download and install MongoDB compass from https://www.mongodb.com/try/download/compass
+
+
+Creating a hosted database with atlas
+https://www.mongodb.com/cloud/atlas
+
+
+
+
+
+
+
+
+
+
+
+
