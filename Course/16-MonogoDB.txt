@@ -89,6 +89,16 @@ https://www.mongodb.com/cloud/atlas
 
 
 
+// MVC Architrure 
+
+//          REQUEST                                ||  Model(BUSINESS MODEL)
+// Client-------------Router-----------Controler---
+//       -----------------------------             || View (PRESENTATION LAYER)
+//           RESPONSE                   Application Logic 
+               
+
+
+
 
 
 
