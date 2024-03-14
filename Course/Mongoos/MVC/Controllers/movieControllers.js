@@ -1,109 +1,91 @@
 const { request } = require('http');
-const Movie = require('../movieModel')
-
-let movies = JSON.parse(fs.readFileSync('../Data/movies.json'));
-
-
-exports.validateBody = (request, response, next) => {
-     if (!request.body.name || !request.body.year) {
-          return response.status(400).json({
-               status: 'error',
-               message: `Not a valid data `
-          });
-     }
-     next();
-}
-
-
-
-
+const Movie = require('../../movieModel')
 
 // Routes handler function
-exports.getallMovie = (request, response) => {
-     response.status(200).json({
-          status: 'success',
-          requestAt: request.requestAt,
-          count: movies.length,
-          data: {
-               movies: movies
-          }
-     })
-}
-
-exports.addMovie = (request, response) => {
-     const newId = movies[movies.length - 1].id + 1;
-     const newMovie = Object.assign({ id: newId }, request.body)
-     movies.push(newMovie);
-     fs.writeFile("../Data/movies.json", JSON.stringify(movies), (err) => {
-          response.status(201).json({
-               status: 'success',
-               data: {
-                    movie: newMovie
-               }
-          })
-     });
-}
-
-exports.getoneMovie = (request, response) => {
-     const id = request.params.id * 1;
-     let idmovie = movies.find(el => el.id === id)
-
-     // if (!idmovie) {
-     //      response.status(404).json({
-     //           status: 'error',
-     //           message: `Movie with ID ${id} is not found`
-     //      })
-     // }
-
-     response.status(200).json({
-          status: 'succes',
-          data: {
-               movie: idmovie
-          }
-     })
-}
-
-
-exports.updateMovie = (request, response) => {
-     let patchid = request.params.id * 1;
-     let patchmovie = movies.find(el => el.id === patchid);
-     // if (!patchmovie) {
-     //      return response.status(404).json({
-     //           status: 'error',
-     //           message: `Id ${patchid} is not found.`
-     //      })
-     // }
-     let patchindex = movies.indexOf(patchmovie);
-     Object.assign(patchmovie, request.body);
-     movies[patchindex] = patchmovie;
-     fs.writeFile('../Data/movies.json', JSON.stringify(movies), (err) => {
+exports.getallMovie = async (request, response) => {
+     try {
+          const movies = await Movie.find()
           response.status(200).json({
-               status: 'succes',
+               status: 'Seacrch All Success...!',
+               length: movies.length,
                data: {
-                    movie: patchmovie
+                    movies
                }
           })
-     })
+     } catch (error) {
+          response.status(404).json({
+               status: 'Failed to Search Movies...!',
+               message: error.message
+          });
+     }
+}
+exports.addMovie = async (request, response) => {
+     try {
+          const movie = await Movie.create(request.body);
+          response.status(201).json({
+               status: 'Succesfully Created...!',
+               data: {
+                    movie
+               }
+          })
+
+     } catch (error) {
+          response.status(400).json({
+               status: 'Fail...!',
+               message: error.message
+          })
+     }
+
 }
 
-exports.deleteMovie = (request, response) => {
-     let deleteid = request.params.id * 1;
-     let deletemovie = movies.find(el => el.id === deleteid);
-     // if (!deletemovie) {
-     //      return response.status(404).json({
-     //           status: 'error',
-     //           message: `Id ${deleteid} is not found.`
-     //      })
-     // }
-     let deleteindex = movies.indexOf(deletemovie);
-     movies.splice(deleteindex, 1);
-     fs.writeFile('../Data/movies.json', JSON.stringify(movies), err => {
-          response.status(204).json({
-               status: 'success',
+exports.getoneMovie = async (request, response) => {
+     try {
+          // const movie = await Movie.find({_id: request.params.id});
+          const movie = await Movie.findById(request.params.id);
+          response.status(200).json({
+               status: 'Seacrch All Success...!',
                data: {
-                    movie: null,
+                    movie
                }
+          })
+     } catch (error) {
+          response.status(404).json({
+               status: 'Not Found...!',
+               message: error.message
+          })
+     }
+}
+
+
+exports.updateMovie = async (request, response) => {
+     try {
+          const updateMovie = await Movie.findByIdAndUpdate(request.params.id, request.body, { new: true, runValidators: true });
+          response.status(200).json({
+               status: "Updated Successfuly...!",
+               data: {
+                    movie: updateMovie
+               }
+          })
+     } catch (error) {
+          response.status(404).json({
+               status: 'Failed to Update...!',
+               message: error.message
           });
-     })
+     }
+}
+
+exports.deleteMovie = async (request, response) => {
+     try {
+          await Movie.findByIdAndDelete(request.params.id);
+          response.status(204).json({
+               status: "Deleted Successfully...!",
+               data: null
+          });
+     } catch (error) {
+          return response.status(400).json({
+               status: 'Failed...!',
+               message: error.message
+          });
+     }
 }
 

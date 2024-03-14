@@ -5,7 +5,7 @@
 // We use this schema to create model out of it.
 
 const mongoose = require('mongoose')
-const app = require('./14-Static')
+const app = require('./16-Monogo')
 // config file
 const dotenv = require('dotenv')
 dotenv.config({ path: './15-config.env' })
@@ -48,11 +48,11 @@ mongoose.connect(process.env.CONN_STR, {
 
 
 
-// // create a server
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//      console.log(`Server started at http://localhost:${port}`);
-// })
+// create a server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+     // console.log(`Server started at http://localhost:${port}`);
+})
 
 
 
