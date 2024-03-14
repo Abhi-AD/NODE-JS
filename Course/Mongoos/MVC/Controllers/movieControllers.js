@@ -2,11 +2,30 @@ const { request } = require('http');
 const Movie = require('../../movieModel')
 
 // Routes handler function
+
+
 exports.getallMovie = async (request, response) => {
      try {
-          const movies = await Movie.find()
+          /*          const excludeFields = ['sort', 'page', 'limit', 'fields'];
+          const queryObj = { ...request.query };
+          excludeFields.forEach((el) => {
+               delete queryObj[el];
+          })
+          const movies = await Movie.find(queryObj);*/
+
+
+          // const movies = await Movie.find().where('durations').gte(request.query.durations).where('ratings').gte(request.query.ratings).where('price').lt(request.query.price);
+
+          // Advance filtering the database
+          let queryStr = JSON.stringify(request.query);
+          queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+          const queryObj = JSON.parse(queryStr)
+          // console.log(queryObj);
+          const movies = await Movie.find(queryObj)
+          console.log(request.query)
+
           response.status(200).json({
-               status: 'Seacrch All Success...!',
+               status: 'Search All Success...!',
                length: movies.length,
                data: {
                     movies
@@ -19,6 +38,9 @@ exports.getallMovie = async (request, response) => {
           });
      }
 }
+
+
+
 exports.addMovie = async (request, response) => {
      try {
           const movie = await Movie.create(request.body);
