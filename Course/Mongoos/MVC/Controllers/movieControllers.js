@@ -16,62 +16,43 @@ exports.getallMovie = async (request, response) => {
 //                delete queryObj[el];
 //           })
 //           const movies = await Movie.find(queryObj);*/
-          let queryObj = { ...request.query };
-          const excludedFields = ['sort', 'fields', 'page', 'limit'];
-          excludedFields.forEach((el) => delete queryObj[el]);
 
-          // Convert operators ($gte, $gt, $lte, $lt) in query parameters
+
+          let { sort, page, limit, fields, ...queryObj } = request.query;
           let queryStr = JSON.stringify(queryObj);
-          queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-          const parsedQuery = JSON.parse(queryStr);
+          queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+          queryObj = JSON.parse(queryStr);
 
-          let query = Movie.find(parsedQuery);
+          let query = Movie.find(queryObj);
 
-          // Assuming request.query.sort and request.query.fields are correctly populated in the API request
-
-          // Sorting
+          // SORTING LOGIC
           if (request.query.sort) {
-               const sortBy = request.query.sort.split(',').join(' ');
+               const sortBy = sort.split(',').join(' ');
                query = query.sort(sortBy);
           } else {
-               query = query.sort("name");
+               query = query.sort('name');
           }
 
-          // Limiting Fields
+          // LIMITING FIELDS  
           if (request.query.fields) {
-               const fields = request.query.fields.split(',').join(' ');
+               const fields = fields.split(',').join(' ');
                query = query.select(fields);
           } else {
-               query = query.select("-__v");
+               query = query.select('-__v');
           }
 
-
-          // Pagination
-          const page = parseInt(request.query.page, 10) || 1;
-          const limit = parseInt(request.query.limit, 10) || 5;
+          // PAGINATION
+          page = page * 1 || 1;
+          limit = limit * 1 || 7;
           const skip = (page - 1) * limit;
-
           query = query.skip(skip).limit(limit);
 
-          // Count documents for pagination check
-          const moviesCount = await Movie.countDocuments(parsedQuery);
-
-          // Pagination check
-          if (skip >= moviesCount) {
-               throw new Error(`The page number ${page} is out of range.`);
-          }
-
-
-
-          // Execute Query
           const movies = await query;
 
           response.status(200).json({
                status: 'Search All Success...!',
                length: movies.length,
-               data: {
-                    movies
-               }
+               data: { movies }
           });
      } catch (error) {
           response.status(404).json({
@@ -80,6 +61,7 @@ exports.getallMovie = async (request, response) => {
           });
      }
 }
+
 
 
 exports.addMovie = async (request, response) => {
