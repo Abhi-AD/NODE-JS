@@ -2,27 +2,63 @@ const { request } = require('http');
 const Movie = require('../../movieModel')
 
 // Routes handler function
-
-
 exports.getallMovie = async (request, response) => {
      try {
           /*          const excludeFields = ['sort', 'page', 'limit', 'fields'];
-          const queryObj = { ...request.query };
-          excludeFields.forEach((el) => {
-               delete queryObj[el];
-          })
-          const movies = await Movie.find(queryObj);*/
+//           const queryObj = { ...request.query };
+//           excludeFields.forEach((el) => {
+//                delete queryObj[el];
+//           })
+//           const movies = await Movie.find(queryObj);*/
+          let queryObj = { ...request.query };
+          const excludedFields = ['sort', 'fields', 'page', 'limit'];
+          excludedFields.forEach((el) => delete queryObj[el]);
 
-
-          // const movies = await Movie.find().where('durations').gte(request.query.durations).where('ratings').gte(request.query.ratings).where('price').lt(request.query.price);
-
-          // Advance filtering the database
-          let queryStr = JSON.stringify(request.query);
+          // Convert operators ($gte, $gt, $lte, $lt) in query parameters
+          let queryStr = JSON.stringify(queryObj);
           queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-          const queryObj = JSON.parse(queryStr)
-          // console.log(queryObj);
-          const movies = await Movie.find(queryObj)
-          console.log(request.query)
+          const parsedQuery = JSON.parse(queryStr);
+
+          let query = Movie.find(parsedQuery);
+
+          // Assuming request.query.sort and request.query.fields are correctly populated in the API request
+
+          // Sorting
+          if (request.query.sort) {
+               const sortBy = request.query.sort.split(',').join(' ');
+               query = query.sort(sortBy);
+          } else {
+               query = query.sort("name");
+          }
+
+          // Limiting Fields
+          if (request.query.fields) {
+               const fields = request.query.fields.split(',').join(' ');
+               query = query.select(fields);
+          } else {
+               query = query.select("-__v");
+          }
+
+
+          // Pagination
+          const page = parseInt(request.query.page, 10) || 1;
+          const limit = parseInt(request.query.limit, 10) || 5;
+          const skip = (page - 1) * limit;
+
+          query = query.skip(skip).limit(limit);
+
+          // Count documents for pagination check
+          const moviesCount = await Movie.countDocuments(parsedQuery);
+
+          // Pagination check
+          if (skip >= moviesCount) {
+               throw new Error(`The page number ${page} is out of range.`);
+          }
+
+
+
+          // Execute Query
+          const movies = await query;
 
           response.status(200).json({
                status: 'Search All Success...!',
@@ -30,7 +66,7 @@ exports.getallMovie = async (request, response) => {
                data: {
                     movies
                }
-          })
+          });
      } catch (error) {
           response.status(404).json({
                status: 'Failed to Search Movies...!',
@@ -38,7 +74,6 @@ exports.getallMovie = async (request, response) => {
           });
      }
 }
-
 
 
 exports.addMovie = async (request, response) => {
@@ -110,4 +145,3 @@ exports.deleteMovie = async (request, response) => {
           });
      }
 }
-

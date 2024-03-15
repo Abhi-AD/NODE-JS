@@ -30,7 +30,8 @@ const movieSchema = new mongoose.Schema({
      },
      createAt: {
           type: Date,
-          default: Date.now()
+          default: Date.now(),
+          select: false
      },
      genres: {
           type: [String],
