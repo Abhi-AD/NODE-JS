@@ -1,6 +1,12 @@
 const { request } = require('http');
 const Movie = require('../../movieModel')
 
+
+exports.getHigestRated = (request, response, next) => {
+     request.query.limit = '5';
+     request.query.sort = '-ratings';
+     next();
+}
 // Routes handler function
 exports.getallMovie = async (request, response) => {
      try {
@@ -145,3 +151,7 @@ exports.deleteMovie = async (request, response) => {
           });
      }
 }
+
+
+
+
