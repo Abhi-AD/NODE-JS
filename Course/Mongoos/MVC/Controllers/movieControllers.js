@@ -8,16 +8,69 @@ exports.getHigestRated = (request, response, next) => {
      next();
 }
 // Routes handler function
+// exports.getallMovie = async (request, response) => {
+//      try {
+//           /*          const excludeFields = ['sort', 'page', 'limit', 'fields'];
+// //           const queryObj = { ...request.query };
+// //           excludeFields.forEach((el) => {
+// //                delete queryObj[el];
+// //           })
+// //           const movies = await Movie.find(queryObj);*/
+
+
+//           let { sort, page, limit, fields, ...queryObj } = request.query;
+//           let queryStr = JSON.stringify(queryObj);
+//           queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+//           queryObj = JSON.parse(queryStr);
+
+//           let query = Movie.find(queryObj);
+
+//           // SORTING LOGIC
+//           if (request.query.sort) {
+//                const sortBy = sort.split(',').join(' ');
+//                query = query.sort(sortBy);
+//           } else {
+//                query = query.sort('name');
+//           }
+
+//           // LIMITING FIELDS  
+//           if (request.query.fields) {
+//                const fields = fields.split(',').join(' ');
+//                query = query.select(fields);
+//           } else {
+//                query = query.select('-__v');
+//           }
+
+//           // PAGINATION
+//           page = page * 1 || 1;
+//           limit = limit * 1 || 7;
+//           const skip = (page - 1) * limit;
+//           query = query.skip(skip).limit(limit);
+
+//           if (request.query.page) {
+//                const moviesCount = Movie.countDocuments(queryObj);
+//                if (skip >= moviesCount) {
+//                     throw new Error(`The page number ${request.query.page} is out of range.`);
+//                }
+//           }
+
+//           const movies = await query;
+
+//           response.status(200).json({
+//                status: 'Search All Success...!',
+//                length: movies.length,
+//                data: { movies }
+//           });
+//      } catch (error) {
+//           response.status(404).json({
+//                status: 'Failed to Search Movies...!',
+//                message: error.message
+//           });
+//      }
+// }
+
 exports.getallMovie = async (request, response) => {
      try {
-          /*          const excludeFields = ['sort', 'page', 'limit', 'fields'];
-//           const queryObj = { ...request.query };
-//           excludeFields.forEach((el) => {
-//                delete queryObj[el];
-//           })
-//           const movies = await Movie.find(queryObj);*/
-
-
           let { sort, page, limit, fields, ...queryObj } = request.query;
           let queryStr = JSON.stringify(queryObj);
           queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
@@ -46,6 +99,12 @@ exports.getallMovie = async (request, response) => {
           limit = limit * 1 || 7;
           const skip = (page - 1) * limit;
           query = query.skip(skip).limit(limit);
+
+          const totalMovies = await Movie.countDocuments(queryObj);
+
+          if (skip >= totalMovies) {
+               throw new Error(`The page number ${page} is out of range.`);
+          }
 
           const movies = await query;
 
