@@ -1,6 +1,6 @@
 const { request } = require('http');
 const Movie = require('../../movieModel')
-
+const ApiFeatures = require('../../Utils/ApiFeatures')
 
 exports.getHigestRated = (request, response, next) => {
      request.query.limit = '5';
@@ -8,16 +8,18 @@ exports.getHigestRated = (request, response, next) => {
      next();
 }
 // Routes handler function
+
+// // without ApiFeatures code active this code 
 // exports.getallMovie = async (request, response) => {
 //      try {
-//           /*          const excludeFields = ['sort', 'page', 'limit', 'fields'];
-// //           const queryObj = { ...request.query };
-// //           excludeFields.forEach((el) => {
-// //                delete queryObj[el];
-// //           })
-// //           const movies = await Movie.find(queryObj);*/
+//           //           /*          const excludeFields = ['sort', 'page', 'limit', 'fields'];
+//           // //           const queryObj = { ...request.query };
+//           // //           excludeFields.forEach((el) => {
+//           // //                delete queryObj[el];
+//           // //           })
+//           // //           const movies = await Movie.find(queryObj);*/
 
-
+//           // filter
 //           let { sort, page, limit, fields, ...queryObj } = request.query;
 //           let queryStr = JSON.stringify(queryObj);
 //           queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
@@ -47,11 +49,10 @@ exports.getHigestRated = (request, response, next) => {
 //           const skip = (page - 1) * limit;
 //           query = query.skip(skip).limit(limit);
 
-//           if (request.query.page) {
-//                const moviesCount = Movie.countDocuments(queryObj);
-//                if (skip >= moviesCount) {
-//                     throw new Error(`The page number ${request.query.page} is out of range.`);
-//                }
+//           const totalMovies = await Movie.countDocuments(queryObj);
+
+//           if (skip >= totalMovies) {
+//                throw new Error(`The page number ${page} is out of range.`);
 //           }
 
 //           const movies = await query;
@@ -69,45 +70,14 @@ exports.getHigestRated = (request, response, next) => {
 //      }
 // }
 
+
+
+
+// using the  ApiFeatures code active this code (reusable class)
 exports.getallMovie = async (request, response) => {
      try {
-          let { sort, page, limit, fields, ...queryObj } = request.query;
-          let queryStr = JSON.stringify(queryObj);
-          queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-          queryObj = JSON.parse(queryStr);
-
-          let query = Movie.find(queryObj);
-
-          // SORTING LOGIC
-          if (request.query.sort) {
-               const sortBy = sort.split(',').join(' ');
-               query = query.sort(sortBy);
-          } else {
-               query = query.sort('name');
-          }
-
-          // LIMITING FIELDS  
-          if (request.query.fields) {
-               const fields = fields.split(',').join(' ');
-               query = query.select(fields);
-          } else {
-               query = query.select('-__v');
-          }
-
-          // PAGINATION
-          page = page * 1 || 1;
-          limit = limit * 1 || 7;
-          const skip = (page - 1) * limit;
-          query = query.skip(skip).limit(limit);
-
-          const totalMovies = await Movie.countDocuments(queryObj);
-
-          if (skip >= totalMovies) {
-               throw new Error(`The page number ${page} is out of range.`);
-          }
-
-          const movies = await query;
-
+          const features = new ApiFeatures(Movie.find(), request.query).filter().sort().limit().paginate();
+          const movies = await features.query;
           response.status(200).json({
                status: 'Search All Success...!',
                length: movies.length,
