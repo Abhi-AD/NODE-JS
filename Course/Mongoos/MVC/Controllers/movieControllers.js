@@ -1,6 +1,7 @@
 const { request } = require('http');
 const Movie = require('../../movieModel')
-const ApiFeatures = require('../../Utils/ApiFeatures')
+const ApiFeatures = require('../../Utils/ApiFeatures');
+const { response } = require('express');
 
 exports.getHigestRated = (request, response, next) => {
      request.query.limit = '5';
@@ -163,6 +164,74 @@ exports.deleteMovie = async (request, response) => {
      }
 }
 
+// Aggregations pipline($match, $group)
+exports.getmovieStats = async (request, response) => {
+     try {
+          const stats = await Movie.aggregate([
+               { $match: { ratings: { $gte: 4.5 } } },
+               {
+                    $group: {
+                         _id: '$releaseYear',
+                         avgRating: { $avg: '$ratings' },
+                         avgPrice: { $avg: '$price' },
+                         minPrice: { $min: '$price' },
+                         maxPrice: { $max: '$price' },
+                         priceTotal: { $sum: "$price" },
+                         movieCount: { $sum: 1 }
+                    }
+               },
+               { $sort: { minPrice: 1 } },
+               { $match: { maxPrice: { $gte: 60 } } },
 
+          ]);
+          response.status(200).json({
+               status: "Successfull...!",
+               count: stats.length,
+               data: {
+                    stats
+               }
+          })
 
+     } catch (error) {
+          response.status(404).json({
+               status: "fail",
+               message: error.message
+          })
+     }
+}
 
+// Aggregations pipline($unwind, $project)
+exports.getmovieByGenre = async (request, response) => {
+     try {
+          const genre = request.params.genre;
+          const movies = await Movie.aggregate([
+               { $unwind: '$genres' },
+               {
+                    $group: {
+                         _id: '$genres',
+                         movieCount: { $sum: 1 },
+                         movies: { $push: '$name' },
+                    }
+               },
+               { $addFields: { genre: "$_id" } },
+               { $project: { _id: 0 } },
+               { $sort: { movieCount: -1 } },
+               // {$limit:1},
+               {$match:{genre:genre}}
+          ]);
+
+          response.status(200).json({
+               status: "Successfull...!",
+               count: movies.length,
+               data: {
+                    movies
+               }
+          })
+
+     } catch (error) {
+          response.status(404).json({
+               status: "fail",
+               message: error.message
+          })
+     }
+}
