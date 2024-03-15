@@ -32,7 +32,7 @@ class ApiFeatures {
      paginate() {
           let { page, limit } = this.queryStr;
           page = page * 1 || 1;
-          limit = limit * 1 || 7;
+          limit = limit * 1 || 50;
           const skip = (page - 1) * limit;
           this.query = this.query.skip(skip).limit(limit);
           // const totalMovies = await Movie.countDocuments(queryObj);

@@ -181,7 +181,7 @@ exports.getmovieStats = async (request, response) => {
                     }
                },
                { $sort: { minPrice: 1 } },
-               { $match: { maxPrice: { $gte: 60 } } },
+               // { $match: { maxPrice: { $gte: 60 } } },
 
           ]);
           response.status(200).json({
@@ -217,7 +217,7 @@ exports.getmovieByGenre = async (request, response) => {
                { $project: { _id: 0 } },
                { $sort: { movieCount: -1 } },
                // {$limit:1},
-               {$match:{genre:genre}}
+               { $match: { genre: genre } }
           ]);
 
           response.status(200).json({
