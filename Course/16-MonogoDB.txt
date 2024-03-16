@@ -101,6 +101,29 @@ https://www.mongodb.com/cloud/atlas
 
 
 
+Global Error Handling
+
+*. Operation Errors
+Operational errors are the problems that we can predict that will happen at some point in future. We need to handle them in advance.
+-Users trying to access an invalid route.
+-Inputting invalid data.
+-Application failed to connect to server.
+-Request timeout etc.
+
+
+*. Programming Errors
+Programming errors are simply bugs that we programmers, by mistake, introduces them in out code.
+-Trying to read property of an undefined variable.
+-Using await without async.
+-Accidently using req.query instead od req.body.
+-Passing a number where an object is expected etc.
+
+
+
+
+
+
+
 
 
 

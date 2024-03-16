@@ -15,4 +15,7 @@ A new movie document with name Left for dead on a sun-scorched planet, Riddick f
  A new movie document with name R1ickgbtrferfgth has been create by Abhishek Dangi
  A new movie document with name R1ickgbtrferfgth has been create by Abhishek Dangi
  A new movie document with name 85sdfghj has been create by Abhishek Dangi
- 
+ A new movie document with name sdfghj has been create by Abhishek Dangi
+ Query took 81 milliseconds to fetch documents
+Query took 71 milliseconds to fetch documents
+Query took 85 milliseconds to fetch documents

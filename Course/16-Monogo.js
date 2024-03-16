@@ -10,4 +10,12 @@ app.use(express.static('../public/'))
 
 app.use('/api/v1/movies', movieRouter)
 
+// default routes
+app.all('*', (request, response, next) => {
+     response.status(404).json({
+          status: "failed...!",
+          message: `Can't find ${request.originalUrl}  on this server...!`
+     })
+})
+
 module.exports = app;
