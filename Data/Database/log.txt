@@ -47,4 +47,9 @@ Query took 58 milliseconds to fetch documents
 Query took 53 milliseconds to fetch documents
 A new movie document with name carrying carrying has been create by Abhishek Dangi
  A new movie document with name carrying carryin has been create by Abhishek Dangi
- 
+ Query took 77 milliseconds to fetch documents
+Query took 59 milliseconds to fetch documents
+Query took 57 milliseconds to fetch documents
+Query took 64 milliseconds to fetch documents
+Query took 65 milliseconds to fetch documents
+Query took 58 milliseconds to fetch documents

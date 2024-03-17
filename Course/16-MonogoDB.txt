@@ -129,3 +129,48 @@ $env:NODE_ENV="production"; nodemon 18-Mongoos.js
 
 
 
+
+// How to Authentictaion Works with JWT
+
+
+
+
+                                           Post/login{email, password}
+Login/Accsaa             Client      <---------Request Data------------------->   Server/Secret
+                                                  Get/profile
+
+
+--------------------------------------------------------
+|     Header          Payload                 Secret   |
+|                        |                             |
+--------------------------------------------------------
+
+
+
+
+--------------------------------------------------------
+|     Header          Payload                 Secret   |     <----JWT----> Client
+|                        |                             |
+--------------------------------------------------------
+
+
+
+
+
+--------------------------------------------------------
+|     Header        Signature                 Secret   |
+|                       |                              |
+--------------------------------------------------------
+
+
+--------------------------------------------------------
+|     Header        Test Signature                 Secret   |
+|                       |                              |
+--------------------------------------------------------
+
+
+
+Signature      =       Test Signature           Authentictaion
+
+Signature      !=      Test Signature           Not Authentictaion
+

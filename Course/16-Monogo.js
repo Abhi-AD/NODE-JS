@@ -1,9 +1,10 @@
 // import packages
 const express = require('express');
-const morgan = require('morgan')
-const movieRouter = require('./Mongoos/MVC/Routes/movieRoutes')
-const CustomError = require('./Mongoos/Utils/CusotmError')
-const  globalErrorHandler=require('./Mongoos/MVC/Controllers/errorControllers')
+const morgan = require('morgan');
+const movieRouter = require('./Mongoos/MVC/Routes/movieRoutes');
+const authRouter = require('./Mongoos/MVC/Routes/authRoutes');
+const CustomError = require('./Mongoos/Utils/CusotmError');
+const globalErrorHandler = require('./Mongoos/MVC/Controllers/errorControllers');
 
 let app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(express.static('../public/'))
 
 app.use('/api/v1/movies', movieRouter)
+app.use('/api/v1/user', authRouter)
 
 // default routes
 app.all('*', (request, response, next) => {

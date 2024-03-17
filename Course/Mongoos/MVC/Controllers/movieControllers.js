@@ -78,6 +78,7 @@ exports.getHigestRated = (request, response, next) => {
 
 // using the  ApiFeatures code active this code (reusable class)
 exports.getallMovie = asyncErrorHandler(async (request, response, next) => {
+     
      const features = new ApiFeatures(Movie.find(), request.query).filter().sort().limit().paginate();
      const movies = await features.query;
      response.status(200).json({
