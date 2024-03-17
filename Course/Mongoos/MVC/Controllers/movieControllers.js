@@ -1,6 +1,8 @@
 const { request } = require('http');
 const Movie = require('../../movieModel')
 const ApiFeatures = require('../../Utils/ApiFeatures');
+const asyncErrorHandler = require('../../Utils/asyncErrorHandler');
+const CustomError = require('../../Utils/CusotmError')
 const { response } = require('express');
 
 exports.getHigestRated = (request, response, next) => {
@@ -75,163 +77,129 @@ exports.getHigestRated = (request, response, next) => {
 
 
 // using the  ApiFeatures code active this code (reusable class)
-exports.getallMovie = async (request, response) => {
-     try {
-          const features = new ApiFeatures(Movie.find(), request.query).filter().sort().limit().paginate();
-          const movies = await features.query;
-          response.status(200).json({
-               status: 'Search All Success...!',
-               length: movies.length,
-               data: { movies }
-          });
-     } catch (error) {
-          response.status(404).json({
-               status: 'Failed to Search Movies...!',
-               message: error.message
-          });
+exports.getallMovie = asyncErrorHandler(async (request, response, next) => {
+     const features = new ApiFeatures(Movie.find(), request.query).filter().sort().limit().paginate();
+     const movies = await features.query;
+     response.status(200).json({
+          status: 'Search All Success...!',
+          length: movies.length,
+          data: { movies }
+     });
+})
+
+
+exports.addMovie = asyncErrorHandler(async (request, response, next) => {
+     const movie = await Movie.create(request.body);
+     response.status(201).json({
+          status: 'Succesfully Created...!',
+          data: {
+               movie
+          }
+     })
+});
+
+exports.getoneMovie = asyncErrorHandler(async (request, response, next) => {
+     // const movie = await Movie.find({_id: request.params.id});
+     const movie = await Movie.findById(request.params.id);
+     if (!movie) {
+          const error = new CustomError('Movie with that IDF is not found...!', 404);
+          return next(error);
      }
-}
+     response.status(200).json({
+          status: 'Seacrch All Success...!',
+          data: {
+               movie
+          }
+     })
+})
 
 
-
-exports.addMovie = async (request, response) => {
-     try {
-          const movie = await Movie.create(request.body);
-          response.status(201).json({
-               status: 'Succesfully Created...!',
-               data: {
-                    movie
-               }
-          })
-
-     } catch (error) {
-          response.status(400).json({
-               status: 'Fail...!',
-               message: error.message
-          })
+exports.updateMovie = asyncErrorHandler(async (request, response, next) => {
+     const updateMovie = await Movie.findByIdAndUpdate(request.params.id, request.body, { new: true, runValidators: true });
+     if (!updateMovie) {
+          const error = new CustomError('Movie with that IDF is not found...!', 404);
+          return next(error);
      }
+     response.status(200).json({
+          status: "Updated Successfuly...!",
+          data: {
+               movie: updateMovie
+          }
+     })
+})
 
-}
-
-exports.getoneMovie = async (request, response) => {
-     try {
-          // const movie = await Movie.find({_id: request.params.id});
-          const movie = await Movie.findById(request.params.id);
-          response.status(200).json({
-               status: 'Seacrch All Success...!',
-               data: {
-                    movie
-               }
-          })
-     } catch (error) {
-          response.status(404).json({
-               status: 'Not Found...!',
-               message: error.message
-          })
+exports.deleteMovie = asyncErrorHandler(async (request, response, next) => {
+     const deleteMovie = await Movie.findByIdAndDelete(request.params.id);
+     if (!deleteMovie) {
+          const error = new CustomError('Movie with that IDF is not found...!', 404);
+          return next(error);
      }
-}
-
-
-exports.updateMovie = async (request, response) => {
-     try {
-          const updateMovie = await Movie.findByIdAndUpdate(request.params.id, request.body, { new: true, runValidators: true });
-          response.status(200).json({
-               status: "Updated Successfuly...!",
-               data: {
-                    movie: updateMovie
-               }
-          })
-     } catch (error) {
-          response.status(404).json({
-               status: 'Failed to Update...!',
-               message: error.message
-          });
-     }
-}
-
-exports.deleteMovie = async (request, response) => {
-     try {
-          await Movie.findByIdAndDelete(request.params.id);
-          response.status(204).json({
-               status: "Deleted Successfully...!",
-               data: null
-          });
-     } catch (error) {
-          return response.status(400).json({
-               status: 'Failed...!',
-               message: error.message
-          });
-     }
-}
+     response.status(204).json({
+          status: "Deleted Successfully...!",
+          data: null
+     });
+})
 
 // Aggregations pipline($match, $group)
-exports.getmovieStats = async (request, response) => {
-     try {
-          const stats = await Movie.aggregate([
-               { $match: { ratings: { $gte: 4.5 } } },
-               {
-                    $group: {
-                         _id: '$releaseYear',
-                         avgRating: { $avg: '$ratings' },
-                         avgPrice: { $avg: '$price' },
-                         minPrice: { $min: '$price' },
-                         maxPrice: { $max: '$price' },
-                         priceTotal: { $sum: "$price" },
-                         movieCount: { $sum: 1 }
-                    }
-               },
-               { $sort: { minPrice: 1 } },
-               // { $match: { maxPrice: { $gte: 60 } } },
-
-          ]);
-          response.status(200).json({
-               status: "Successfull...!",
-               count: stats.length,
-               data: {
-                    stats
+exports.getmovieStats = asyncErrorHandler(async (request, response, next) => {
+     const stats = await Movie.aggregate([
+          { $match: { ratings: { $gte: 4.5 } } },
+          {
+               $group: {
+                    _id: '$releaseYear',
+                    avgRating: { $avg: '$ratings' },
+                    avgPrice: { $avg: '$price' },
+                    minPrice: { $min: '$price' },
+                    maxPrice: { $max: '$price' },
+                    priceTotal: { $sum: "$price" },
+                    movieCount: { $sum: 1 }
                }
-          })
+          },
+          { $sort: { minPrice: 1 } },
+          // { $match: { maxPrice: { $gte: 60 } } },
 
-     } catch (error) {
-          response.status(404).json({
-               status: "fail",
-               message: error.message
-          })
+     ]);
+     if (!stats) {
+          const error = new CustomError('Movie with that IDF is not found...!', 404);
+          return next(error);
      }
-}
+     response.status(200).json({
+          status: "Successfull...!",
+          count: stats.length,
+          data: {
+               stats
+          }
+     })
+})
 
 // Aggregations pipline($unwind, $project)
-exports.getmovieByGenre = async (request, response) => {
-     try {
-          const genre = request.params.genre;
-          const movies = await Movie.aggregate([
-               { $unwind: '$genres' },
-               {
-                    $group: {
-                         _id: '$genres',
-                         movieCount: { $sum: 1 },
-                         movies: { $push: '$name' },
-                    }
-               },
-               { $addFields: { genre: "$_id" } },
-               { $project: { _id: 0 } },
-               { $sort: { movieCount: -1 } },
-               // {$limit:1},
-               { $match: { genre: genre } }
-          ]);
-
-          response.status(200).json({
-               status: "Successfull...!",
-               count: movies.length,
-               data: {
-                    movies
+exports.getmovieByGenre = asyncErrorHandler(async (request, response, next) => {
+     const genre = request.params.genre;
+     const movies = await Movie.aggregate([
+          { $unwind: '$genres' },
+          {
+               $group: {
+                    _id: '$genres',
+                    movieCount: { $sum: 1 },
+                    movies: { $push: '$name' },
                }
-          })
-
-     } catch (error) {
-          response.status(404).json({
-               status: "fail",
-               message: error.message
-          })
+          },
+          { $addFields: { genre: "$_id" } },
+          { $project: { _id: 0 } },
+          { $sort: { movieCount: -1 } },
+          // {$limit:1},
+          { $match: { genre: genre } }
+     ]);
+     if (!movies) {
+          const error = new CustomError('Movie with that IDF is not found...!', 404);
+          return next(error);
      }
-}
+
+     response.status(200).json({
+          status: "Successfull...!",
+          count: movies.length,
+          data: {
+               movies
+          }
+     })
+})

@@ -19,3 +19,32 @@ A new movie document with name Left for dead on a sun-scorched planet, Riddick f
  Query took 81 milliseconds to fetch documents
 Query took 71 milliseconds to fetch documents
 Query took 85 milliseconds to fetch documents
+Query took 83 milliseconds to fetch documents
+Query took 73 milliseconds to fetch documents
+Query took 60 milliseconds to fetch documents
+Query took 59 milliseconds to fetch documents
+Query took 65 milliseconds to fetch documents
+Query took 150 milliseconds to fetch documents
+Query took 56 milliseconds to fetch documents
+Query took 63 milliseconds to fetch documents
+Query took 51 milliseconds to fetch documents
+A new movie document with name alphabets has been create by Abhishek Dangi
+ A new movie document with name Alphabets has been create by Abhishek Dangi
+ A new movie document with name Alphabet has been create by Abhishek Dangi
+ Query took 69 milliseconds to fetch documents
+Query took 54 milliseconds to fetch documents
+A new movie document with name We are the Millers Data has been create by Abhishek Dangi
+ Query took 57 milliseconds to fetch documents
+Query took 269 milliseconds to fetch documents
+Query took 63 milliseconds to fetch documents
+Query took 93 milliseconds to fetch documents
+Query took 64 milliseconds to fetch documents
+Query took 224 milliseconds to fetch documents
+Query took 57 milliseconds to fetch documents
+Query took 69 milliseconds to fetch documents
+Query took 63 milliseconds to fetch documents
+Query took 58 milliseconds to fetch documents
+Query took 53 milliseconds to fetch documents
+A new movie document with name carrying carrying has been create by Abhishek Dangi
+ A new movie document with name carrying carryin has been create by Abhishek Dangi
+ 

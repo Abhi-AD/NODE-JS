@@ -121,7 +121,8 @@ Programming errors are simply bugs that we programmers, by mistake, introduces t
 
 
 
-
+// Handling invalid ID errors NODE_ENV change 
+$env:NODE_ENV="production"; nodemon 18-Mongoos.js
 
 
 

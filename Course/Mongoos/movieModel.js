@@ -15,7 +15,7 @@ const movieSchema = new mongoose.Schema({
           minlength: [5, "Movie name must not have least 5 characters"],
           trim: true,
           // data validator third party
-          validate: [validator.isAlpha, "Name should only contain alphabets...!"]
+          // validate: [validator.isAlpha, "Name should only contain alphabets...!"]
      },
      description: {
           type: String,

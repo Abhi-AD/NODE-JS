@@ -12,16 +12,30 @@ dotenv.config({ path: './15-config.env' })
 
 // enviroment variable
 // console.log(app.get('env'));
+
+
+process.on('uncaughtException', (error) => {
+     console.log(error.name, error.message);
+     console.log('Unhandled rejection ! Shutting down...');
+     server.close(() => {
+          process.exit(1);
+     })
+});
+
+
 console.log(process.env);
+
+
 
 mongoose.connect(process.env.CONN_STR, {
      useNewUrlParser: true,
 }).then((connect) => {
      // console.log(connect);
      console.log("connected to database");
-}).catch((error) => {
-     console.log("could not connect to the database")
-});
+})
+// .catch((error) => {
+//      console.log("could not connect to the database")
+// });
 
 
 
@@ -50,9 +64,19 @@ mongoose.connect(process.env.CONN_STR, {
 
 // create a server
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-     // console.log(`Server started at http://localhost:${port}`);
+const server = app.listen(port, () => {
+     console.log(`Server started at http://localhost:${port}`);
 })
+
+process.on('unhandledRejection', (error) => {
+     console.log(error.name, error.message);
+     console.log('Unhandled rejection ! Shutting down...');
+     server.close(() => {
+          process.exit(1);
+     })
+});
+
+
 
 
 
