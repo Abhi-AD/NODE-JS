@@ -33,7 +33,7 @@ const handlerExpiredJWT = (error) =>{
 }
 
 const handlerJWTError = (error) =>{
-     return new CustomError('Invalid JWT token', 401);
+     return new CustomError('Invalid JWT token data', 401);
 }
 
 

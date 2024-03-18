@@ -1,6 +1,5 @@
 // import packages
 const express = require('express');
-const morgan = require('morgan');
 const movieRouter = require('./Mongoos/MVC/Routes/movieRoutes');
 const authRouter = require('./Mongoos/MVC/Routes/authRoutes');
 const CustomError = require('./Mongoos/Utils/CusotmError');

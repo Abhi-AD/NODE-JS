@@ -174,3 +174,30 @@ Signature      =       Test Signature           Authentictaion
 
 Signature      !=      Test Signature           Not Authentictaion
 
+
+// Password Reset functionality
+
+
+1. User send a POST request to forget password route only with his email address.
+2. The user then sends a POST request password with the new password and then token send to his email.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
