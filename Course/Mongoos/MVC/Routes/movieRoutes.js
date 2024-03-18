@@ -1,5 +1,6 @@
 const express = require('express');
 const movieController = require('../Controllers/movieControllers');
+const authController = require('../Controllers/authController')
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.route('/highest-rated').get(movieController.getHigestRated, movieControll
 router.route('/movie-stats').get(movieController.getmovieStats);
 // Aggregations pipline($unwind, $projcect)
 router.route('/movie-by-genre/:genre').get(movieController.getmovieByGenre);
-router.route('/').get(movieController.getallMovie).post(movieController.addMovie);
+router.route('/').get(authController.protect,movieController.getallMovie).post(movieController.addMovie);
 router.route('/:id').get(movieController.getoneMovie).patch(movieController.updateMovie).delete(movieController.deleteMovie);
 
 module.exports = router;

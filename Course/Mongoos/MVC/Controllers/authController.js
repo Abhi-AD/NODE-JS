@@ -1,9 +1,10 @@
-const { response } = require('../../../16-Monogo');
+const { response, request } = require('../../../16-Monogo');
 
 const User = require('../../userModel');
 const asyncErrorHandler = require('../../Utils/asyncErrorHandler');
 const jwt = require('jsonwebtoken');
 const CustomError = require('../../Utils/CusotmError');
+const Utils = require('util');
 
 
 
@@ -64,3 +65,36 @@ exports.login = asyncErrorHandler(async (request, response, next) => {
 })
 
 
+exports.protect = asyncErrorHandler(async (request, response, next) => {
+     // read tjhe token and check if it exist
+     const testToken = request.headers.authorization
+     let token;
+     if (testToken && testToken.startsWith('token')) {
+          token = testToken.split(' ')[1];
+     }
+     if (!token) {
+          next(new CustomError('You are not logged in...!', 401))
+     }
+
+     // validate the token
+     const decodedToken = await Utils.promisify(jwt.verify)(token, process.env.SECRET_STR);
+     console.log(decodedToken)
+
+     // if the user exits
+     const user = await User.findById(decodedToken.id);
+     if (!user) {
+          const error = new CustomError("The user with  token does not exist...!", 401);
+          next(error);
+     }
+
+     const isPasswordChanged = await user.ispasswordChanged(decodedToken.iat)
+     //  if the user chanaged password after the token was issued
+     if (isPasswordChanged) {
+          const error = new CustomError('The password has been changed recently. Please login Again....!', 401);
+          return next(error);
+
+     }
+     // allow user to access router
+     request.user = user;
+     next();
+})

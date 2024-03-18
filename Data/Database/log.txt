@@ -1,55 +1,25 @@
-A new movie document with name KGF Chapter-1 has been create by Abhishek Dangi
-Query took 61 milliseconds to fetch documents
-Query took 56 milliseconds to fetch documents
-Query took 79 milliseconds to fetch documents
 Query took 90 milliseconds to fetch documents
-Query took 315 milliseconds to fetch documents
-Query took 311 milliseconds to fetch documents
-Query took 325 milliseconds to fetch documents
-A new movie document with name Left for dead on a sun-scorched planet, Riddick finds himself up against an alien race of predators. Activating an emergency beacon alerts two ships: one carrying a new breed of mercenary, the other captained by a man from Riddick's past. has been create by Abhishek Dangi
- A new movie document with name R1iddick has been create by Abhishek Dangi
- A new movie document with name R1idd3ick has been create by Abhishek Dangi
- A new movie document with name R1idd3ick has been create by Abhishek Dangi
- A new movie document with name R1ick has been create by Abhishek Dangi
- A new movie document with name R1ickgbtrfdcerfgth has been create by Abhishek Dangi
- A new movie document with name R1ickgbtrferfgth has been create by Abhishek Dangi
- A new movie document with name R1ickgbtrferfgth has been create by Abhishek Dangi
- A new movie document with name 85sdfghj has been create by Abhishek Dangi
- A new movie document with name sdfghj has been create by Abhishek Dangi
- Query took 81 milliseconds to fetch documents
-Query took 71 milliseconds to fetch documents
-Query took 85 milliseconds to fetch documents
-Query took 83 milliseconds to fetch documents
-Query took 73 milliseconds to fetch documents
-Query took 60 milliseconds to fetch documents
-Query took 59 milliseconds to fetch documents
-Query took 65 milliseconds to fetch documents
-Query took 150 milliseconds to fetch documents
-Query took 56 milliseconds to fetch documents
-Query took 63 milliseconds to fetch documents
-Query took 51 milliseconds to fetch documents
-A new movie document with name alphabets has been create by Abhishek Dangi
- A new movie document with name Alphabets has been create by Abhishek Dangi
- A new movie document with name Alphabet has been create by Abhishek Dangi
- Query took 69 milliseconds to fetch documents
-Query took 54 milliseconds to fetch documents
-A new movie document with name We are the Millers Data has been create by Abhishek Dangi
- Query took 57 milliseconds to fetch documents
-Query took 269 milliseconds to fetch documents
-Query took 63 milliseconds to fetch documents
-Query took 93 milliseconds to fetch documents
-Query took 64 milliseconds to fetch documents
-Query took 224 milliseconds to fetch documents
-Query took 57 milliseconds to fetch documents
-Query took 69 milliseconds to fetch documents
-Query took 63 milliseconds to fetch documents
-Query took 58 milliseconds to fetch documents
-Query took 53 milliseconds to fetch documents
-A new movie document with name carrying carrying has been create by Abhishek Dangi
- A new movie document with name carrying carryin has been create by Abhishek Dangi
- Query took 77 milliseconds to fetch documents
-Query took 59 milliseconds to fetch documents
-Query took 57 milliseconds to fetch documents
-Query took 64 milliseconds to fetch documents
-Query took 65 milliseconds to fetch documents
-Query took 58 milliseconds to fetch documents
+Query took 100 milliseconds to fetch documents
+Query took 187 milliseconds to fetch documents
+Query took 84 milliseconds to fetch documents
+Query took 329 milliseconds to fetch documents
+Query took 90 milliseconds to fetch documents
+Query took 86 milliseconds to fetch documents
+Query took 79 milliseconds to fetch documents
+Query took 458 milliseconds to fetch documents
+Query took 90 milliseconds to fetch documents
+Query took 1098 milliseconds to fetch documents
+Query took 86 milliseconds to fetch documents
+Query took 67 milliseconds to fetch documents
+Query took 274 milliseconds to fetch documents
+Query took 89 milliseconds to fetch documents
+Query took 322 milliseconds to fetch documents
+Query took 212 milliseconds to fetch documents
+Query took 205 milliseconds to fetch documents
+Query took 90 milliseconds to fetch documents
+Query took 74 milliseconds to fetch documents
+Query took 79 milliseconds to fetch documents
+Query took 103 milliseconds to fetch documents
+Query took 98 milliseconds to fetch documents
+Query took 86 milliseconds to fetch documents
+Query took 96 milliseconds to fetch documents

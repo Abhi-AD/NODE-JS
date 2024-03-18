@@ -28,6 +28,16 @@ const validationErrorHandler = (error) => {
      return new CustomError(message, 400);
 };
 
+const handlerExpiredJWT = (error) =>{
+     return new CustomError("JWT has expired. Pleas login Again..!", 401);
+}
+
+const handlerJWTError = (error) =>{
+     return new CustomError('Invalid JWT token', 401);
+}
+
+
+
 const prodErrors = (response, error) => {
      if (error.isOperational) {
           response.status(error.statusCode).json({
@@ -48,10 +58,11 @@ module.exports = (error, request, response, next) => {
      if (process.env.NODE_ENV === "development") {
           devErrors(response, error);
      } else if (process.env.NODE_ENV === "production") {
-          let err = { ...error };
           if (error.name === 'CastError') error = castErrorHandler(error);
           if (error.code === 11000) error = duplicateKeyErrorHandler(error);
           if (error.name === 'ValidationError') error = validationErrorHandler(error);
+          if (error.name === 'TokenExpiredError') error = handlerExpiredJWT(error);
+          if(error.name === 'JsonWebTokenError') error = handlerJWTError(error);
           prodErrors(response, error);
      }
 };
