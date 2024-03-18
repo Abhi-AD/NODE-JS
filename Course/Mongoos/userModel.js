@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
                message: "Password does not match!"
           }
      },
+     active: {
+          type: Boolean,
+          default: true,
+          select: false
+     },
      passwordChangedat: Date,
      passwordResetToken: String,
      passwordResetExpire: Date,
@@ -50,6 +55,15 @@ userSchema.pre('save', async function (next) {
      this.confirmpassword = undefined;
      next();
 });
+
+userSchema.pre(/^find/, function (next) {
+     // this keywords in the function will point to current query
+     this.find({ active: { $ne: false } });
+     next();
+})
+
+
+
 
 
 userSchema.methods.comparePassswordInDb = async function (password, passwordDb) {
