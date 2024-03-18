@@ -2,7 +2,6 @@
 const express = require('express');
 const movieRouter = require('./Mongoos/MVC/Routes/movieRoutes');
 const authRouter = require('./Mongoos/MVC/Routes/authRoutes');
-const userRouter = require('./Mongoos/MVC/Routes/userRoutes');
 const CustomError = require('./Mongoos/Utils/CusotmError');
 const globalErrorHandler = require('./Mongoos/MVC/Controllers/errorControllers');
 
@@ -12,8 +11,7 @@ app.use(express.json());
 app.use(express.static('../public/'))
 
 app.use('/api/v1/movies', movieRouter)
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/user', userRouter)
+app.use('/api/v1/user', authRouter)
 
 // default routes
 app.all('*', (request, response, next) => {

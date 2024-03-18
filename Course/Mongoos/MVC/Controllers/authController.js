@@ -188,30 +188,30 @@ exports.resetPassword = asyncErrorHandler(async (request, response, next) => {
 })
 
 
-// exports.updatePassword = asyncErrorHandler(async (request, response, next) => {
-//      // get cirrent user data from database
-//      const user = await User.findById(request.user._id).select('+password');
+exports.updatePassword = asyncErrorHandler(async (request, response, next) => {
+     // get cirrent user data from database
+     const user = await User.findById(request.user._id).select('+password');
 
-//      // check if the supplied cureent password is correct
-//      if (!await user.comparePassswordInDb(request.body.currentPassword, user.password)) {
-//           return next(new CustomError("Your current password is wrong.....!", 401));
-//      }
+     // check if the supplied cureent password is correct
+     if (!await user.comparePassswordInDb(request.body.currentPassword, user.password)) {
+          return next(new CustomError("Your current password is wrong.....!", 401));
+     }
 
-//      // if supplied password is correct, update user password with new value
-//      user.password = request.body.password;
-//      user.confirmpassword = request.body.confirmpassword;
-//      await user.save();
+     // if supplied password is correct, update user password with new value
+     user.password = request.body.password;
+     user.confirmpassword = request.body.confirmpassword;
+     await user.save();
 
-//      // login user and sent JWT
-//      createSendResponse(user, 200, response);
-//      // const token = signToken(user._id);
-//      // response.status(200).json({
-//      //      status: "Update password succesfully.....!",
-//      //      token,
-//      //      data: {
-//      //           user
-//      //      }
-//      // })
-// })
+     // login user and sent JWT
+     createSendResponse(user, 200, response);
+     // const token = signToken(user._id);
+     // response.status(200).json({
+     //      status: "Update password succesfully.....!",
+     //      token,
+     //      data: {
+     //           user
+     //      }
+     // })
+})
 
 
