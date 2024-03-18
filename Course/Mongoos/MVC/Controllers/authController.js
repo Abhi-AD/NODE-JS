@@ -69,7 +69,7 @@ exports.protect = asyncErrorHandler(async (request, response, next) => {
      // read tjhe token and check if it exist
      const testToken = request.headers.authorization
      let token;
-     if (testToken && testToken.startsWith('token')) {
+     if (testToken && testToken.startsWith('Bearer ')) {
           token = testToken.split(' ')[1];
      }
      if (!token) {
@@ -98,3 +98,26 @@ exports.protect = asyncErrorHandler(async (request, response, next) => {
      request.user = user;
      next();
 })
+// singale role permission
+
+exports.restrict = (role) => {
+     return (request, response, next) => {
+          if (request.user.role !== role) {
+               const error = new CustomError(`You do not have permission to perform this action.`, 403)
+               next(error);
+          }
+          next();
+     }
+}
+
+
+// // multiple role permission
+// exports.restrict = (...role) => {
+//      return (request, response, next) => {
+//           if (!role.includes(request.user.role)) {
+//                const error = new CustomError(`You do not have permission to perform this action.`, 403)
+//                next(error);
+//           }
+//           next();
+//      }
+// }

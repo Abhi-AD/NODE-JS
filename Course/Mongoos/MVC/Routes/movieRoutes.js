@@ -11,6 +11,6 @@ router.route('/movie-stats').get(movieController.getmovieStats);
 // Aggregations pipline($unwind, $projcect)
 router.route('/movie-by-genre/:genre').get(movieController.getmovieByGenre);
 router.route('/').get(authController.protect,movieController.getallMovie).post(movieController.addMovie);
-router.route('/:id').get(movieController.getoneMovie).patch(movieController.updateMovie).delete(movieController.deleteMovie);
+router.route('/:id').get(authController.protect,movieController.getoneMovie).patch(movieController.updateMovie).delete(authController.protect,authController.restrict('admin', 'superadmin'),movieController.deleteMovie);
 
 module.exports = router;
