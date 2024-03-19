@@ -1,5 +1,7 @@
 // import packages
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+
 const movieRouter = require('./Mongoos/MVC/Routes/movieRoutes');
 const authRouter = require('./Mongoos/MVC/Routes/authRoutes');
 const CustomError = require('./Mongoos/Utils/CusotmError');
@@ -8,9 +10,17 @@ const globalErrorHandler = require('./Mongoos/MVC/Controllers/errorControllers')
 
 let app = express();
 
+let limiter = rateLimit({
+     max: 2,
+     windowMs: 60 * 60 * 1000,
+     message: "Too many requests from this IP, please   try again 1hours later"
+});
+
+
 app.use(express.json());
 app.use(express.static('../public/'))
 
+app.use('/api', limiter);
 app.use('/api/v1/movies', movieRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)

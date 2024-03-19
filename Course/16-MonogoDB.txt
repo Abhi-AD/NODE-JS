@@ -197,6 +197,36 @@ Cross site scriting(XSS) is a type of attack where the attacker tries to inject 
 
 
 
+// Impementing Rate Limiting
+
+1. Brute Force attack
+In this type of attack, the hacker basically tries to huess a password by trying millions and millions of random password until they find the right one.
+- Make the login request slow(using bcrypt)
+- Implement rate Limiting
+- Impementing maximum login attempts.
+
+
+2. Denial of Service
+In this type of attack sends so many requests to the server that it creashes the server and the application become unavailable.
+- Impementing rate Limiting.
+- Limit the ammount of data coming in request body.
+- Avoid using evil regular expressions.
+
+
+
+By Impementing Rate Limiting, we restrict same IP address from making too many requests to the server in a given period of time.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
