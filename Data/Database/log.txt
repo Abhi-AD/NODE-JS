@@ -31,3 +31,13 @@ Query took 69 milliseconds to fetch documents
 Query took 71 milliseconds to fetch documents
 Query took 73 milliseconds to fetch documents
 Query took 50 milliseconds to fetch documents
+Query took 68 milliseconds to fetch documents
+Query took 171 milliseconds to fetch documents
+Query took 68 milliseconds to fetch documents
+Query took 293 milliseconds to fetch documents
+Query took 54 milliseconds to fetch documents
+Query took 236 milliseconds to fetch documents
+Query took 81 milliseconds to fetch documents
+Query took 164 milliseconds to fetch documents
+Query took 93 milliseconds to fetch documents
+Query took 64 milliseconds to fetch documents
