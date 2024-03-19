@@ -1,6 +1,7 @@
 // import packages
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 const movieRouter = require('./Mongoos/MVC/Routes/movieRoutes');
 const authRouter = require('./Mongoos/MVC/Routes/authRoutes');
@@ -10,6 +11,12 @@ const globalErrorHandler = require('./Mongoos/MVC/Controllers/errorControllers')
 
 let app = express();
 
+app.use(helmet());
+
+
+
+
+
 let limiter = rateLimit({
      max: 2,
      windowMs: 60 * 60 * 1000,
@@ -17,7 +24,7 @@ let limiter = rateLimit({
 });
 
 
-app.use(express.json());
+app.use(express.json({limit:  '10kb'}));
 app.use(express.static('../public/'))
 
 app.use('/api', limiter);
