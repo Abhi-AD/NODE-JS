@@ -187,7 +187,11 @@ Signature      !=      Test Signature           Not Authentictaion
 
 
 
-
+// Cross site scriting (XSS) Attack
+Cross site scriting(XSS) is a type of attack where the attacker tries to inject scritps into our web page to run some malicious code.
+1- Allow attacker to read the browser's local storage.
+2- If the application is storing JWT in local storage, it can be ready by attackerand can be user for hacking into the application.
+3- Can be prevented by sending and receiving JWT in HTTP Cokkir, instead of storing it in local storage of browser.
 
 
 

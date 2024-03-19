@@ -20,6 +20,18 @@ const signToken = id => {
 const createSendResponse = (user, statusCode, response) => {
      const token = signToken(user._id);
 
+     const options = {
+          maxAge: process.env.LOGIN_EXPIRES,
+          httpOnly: true
+     }
+
+     if (process.env.NODE_ENV === 'production')
+          options.secure = true;
+
+
+     response.cookie('jwt', token, options);
+     user.password = undefined;
+
      // return json web token and user profile 
      response.status(statusCode).json({
           status: 'success',
